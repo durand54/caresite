@@ -1,3 +1,17 @@
+Options +FollowSymLinks
+SetEnv TZ America/Los_Angeles
+SetEnv SERVER_ADMIN durandjones@rcomcreative.com
+
+<IfModule mod_php.c>
+php_value upload_max_filesize 90M
+php_value post_max_size 55M
+php_value memory_limit 64M
+</IfModule>
+
+RewriteEngine On
+
+Redirect 301 /TCJ http://google.com
+
 # Apache configuration file
 # httpd.apache.org/docs/2.2/mod/quickreference.html
 

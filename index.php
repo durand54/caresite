@@ -38,7 +38,6 @@
 
 <body>
   <header>
-  hello there
   </header>
   <div role="main">
 

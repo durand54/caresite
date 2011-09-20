@@ -213,7 +213,7 @@ td { vertical-align: top; }
    ========================================================================== */
 .loginWrapper {
 	min-height: 100%;
-	height: auto !important;
+/*	height: auto !important;*/
 	height: 100%;
 	margin: 0 auto -119px;
 	background-image: url(../img/car09142013.jpg);

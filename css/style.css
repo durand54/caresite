@@ -209,9 +209,18 @@ td { vertical-align: top; }
 
 
 /* ==|== primary styles =====================================================
-   Author:
+   Author: DuRand Jones
    ========================================================================== */
-
+.loginWrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -119px;
+	background-image: url(../img/car09142013.jpg);
+	background-position: center 0px;
+	background-repeat: no-repeat;
+	
+}
 
 
 

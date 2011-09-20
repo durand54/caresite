@@ -37,10 +37,12 @@
 </head>
 
 <body>
+  <div class="loginWrapper">
   <header>
   </header>
   <div role="main">
 
+  </div>
   </div>
   <footer>
 

@@ -1,3 +1,4 @@
+$(document).ready(function() { 
     var options = { 
         target:        '.account',   // target element(s) to be updated with server response 
         beforeSubmit:  showRequest,  // pre-submit callback 
@@ -52,12 +53,7 @@ function showResponse(responseText, statusText, xhr, $form)  {
     // property set to 'json' then the first argument to the success callback 
     // is the json data object returned by the server 
  
-    //alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + '\n\nThe output div should have already been updated with the responseText.');
-    if(responseText == "eAutoPacific"){
-    setTimeout("window.location = 'index';",100); 
-    }
-}
-
-
-
-
+    alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
+        '\n\nThe output div should have already been updated with the responseText.'); 
+} 
+});

@@ -1,29 +1,4 @@
 <?php
-/*
-**insuring that there are no sessions set
-*/
-session_start();
-$sessionName = session_id();
-$sessionCookie = session_get_cookie_params();
-function logout(){
-    $_SESSION = array(); 
-    if (ini_get("session.use_cookies")) {
-        $params = session_get_cookie_params();
-        setcookie(session_name(), '', time() - 42000,
-            $params["path"], $params["domain"],
-            $params["secure"], $params["httponly"]
-        );
-    }
-    session_unset();
-    session_destroy();
-}
-
-logout();
-
-/*
-**end of session killer
-*/
-
 ?>
 <!doctype html>
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
@@ -47,50 +22,38 @@ logout();
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+	
   <link rel="stylesheet" href="css/start/jquery-ui-1.8.16.custom.css">
   <link rel="stylesheet" href="css/style.css">
   
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
-<style type="text/css">a.ui-dialog-titlebar-close { display:none }</style>
+	<style type="text/css">a.ui-dialog-titlebar-close { display:none }</style>
   <!-- All JavaScript at the bottom, except this Modernizr build incl. Respond.js
        Respond is a polyfill for min/max-width media queries. Modernizr enables HTML5 elements & feature detects; 
        for optimal performance, create your own custom Modernizr build: www.modernizr.com/download/ -->
   <script src="js/libs/modernizr-2.0.6.min.js"></script>
   <!--adaptive images script -->
+  <script>document.cookie='resolution='+Math.max(screen.width,screen.height)+'; expires=; path=/';</script>
 
 </head>
 
 <body>
-  <header class="loginWrapper">
-
-
-
-  <h1 class="head">eAutoPacific Authoritative Automotive Research & Insight</h1>
-  <div id="header">
-  <div class="inner">
-  <div role="main">
-  <!--<div id="loginBox">-->
-  <div id="login">
-  
-  <div class="userPass">
-  		<form id="myFormL" action="form.php" method="post" class="secure">
-		<div class="boxLeft3 text">User Name:</div>
-		<div class="boxLeft text"><input type="text" name="uName" value=""  /></div>
-		<div class="clear"></div>
-		<div class="boxLeft4 text">Password:</div>
-		<div class="boxLeft2 text"><input type="password" name="pass" value=""  /></div>
-		<div class="clear"></div>
-		<input class="login" type="submit" name="submit" value="Login" />
-		
-		</form>
-		<div class="account">Don't have an account?</div>
-		
+  <header class="wrapper">
+    <div id="header2">
+		<div class="inner">
+		<div class="butt" id="competitive">
+		<p class='competitive'>Competitive Battleground</p>
+		<div class='arrow' id='battle' ></div>
 		</div>
-  
-  </div>
-  <!--</div>-->
-  </div>
-  </div>
+		<div id="logo"></div>
+		<div class="buttTwo" id="sales">
+		<p class='sales'>Sales Forecast Service</p>
+		<div class='arrowTwo' id='forecast' ></div>
+		</div>
+		<div id="logout"></div>
+		<div id="twitterEmail"></div>
+		</div>
+		</div>
   <div class="push"></div>
   </div>
 		
@@ -109,30 +72,30 @@ logout();
 		
 		</div>
 		</div>
-		
+		<div id="dialog" title="Your session is about to expire!">
+	<p>
+		<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
+		You will be logged off in <span id="dialog-countdown" style="font-weight:bold"></span> seconds.
+	</p>
+	
+	<p>Do you want to continue your session?</p>
+</div>
   </footer>
 
 
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-
-
-
-  <!-- scripts concatenated and minified via build script -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js" type="text/javascript"></script>
-<script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.4.min.js"><\/script>')</script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.4.min.js"><\/script>')</script>
+	
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js" type="text/javascript"></script>
 
-
+  <!-- scripts concatenated and minified via build script -->
   <script defer src="js/plugins.js"></script>
-  
-  <script defer src="js/script.js"></script>
-  
-
+  <script defer src="js/script2.js"></script>
   <!-- end scripts -->
 
-</script>
 
   <!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.
        mathiasbynens.be/notes/async-analytics-snippet -->

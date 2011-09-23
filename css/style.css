@@ -33,7 +33,7 @@ audio:not([controls]) { display: none; }
 
 html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
 
-body { margin: 0; font-size: 13px; line-height: 1.231; }
+body { margin: 0; font-size: 13px; /*line-height: 1.231;*/ }
 
 body, button, input, select, textarea { font-family: sans-serif; color: #222; }
 
@@ -44,7 +44,7 @@ body, button, input, select, textarea { font-family: sans-serif; color: #222; }
  */
 
 ::-moz-selection { background: #fe57a1; color: #fff; text-shadow: none; }
-::selection { background: #fe57a1; color: #fff; text-shadow: none; }
+::selection { background: /*#fe57a1*/#03A1E5; color: #000; text-shadow: none; }
 
 
 /* =============================================================================
@@ -211,23 +211,334 @@ td { vertical-align: top; }
 /* ==|== primary styles =====================================================
    Author: DuRand Jones
    ========================================================================== */
-html {height:100%;}
-body {margin:0; padding:0; height:100%;}   
-
+html, body {
+	height: 100%;
+	text-align:center;
+	margin:0; padding:0;
+	background-color: #FFFFFF;
+}
+  
+img {
+	display: block;
+	border = 0;	.	
+	max-width: 100%;
+	}
+/*LOGIN PAGE*/
 .loginWrapper {
-	min-height: 100%;
+ 	min-height: 100%;
 	height: auto !important;
 	height: 100%;
 	margin: 0 auto -119px;
-	background-image: url(../img/car09142013.jpg);
+	background-image: url(../background/car09142013.jpg);
 	background-position: center 0px;
 	background-repeat: no-repeat;
 	
 }
+#header{
+	
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	
+	width: 100%;
+	min-width: 100%;
+	position: relative;
+}
+#header div.inner {
+	max-width: 64em;
+	height: 850px;	
+	position:relative;
+	clear:both;
+	text-align:left;
+	margin:0 auto;
+	overflow: hidden;
+}
+#login {
+	float: left;
+	width: 53.7109375%;
+	/*width: 34.375em;*/
+	height: 303px;
+	margin-left: 23.14453125%;
+	margin-top: 253px;
+}
+#login input.login {
+	float: right;
+	margin-right: 80px;
+	margin-top: 12px;
+	
+
+	color:#FFFFFF;
+	
+	font-size: 1.0625em;
+	font-weight: 400;
+	font-family: sans-serif;
+	padding-right: 22px;
+	padding-left: 22px;
+	padding-bottom: 4px;
+	padding-top: 4px;
+	background:url(../images/button5x50black.png) repeat-x center #284ca7;
+	border:1px solid #DEEDA0;
+	border-bottom:1px solid #9f9f9f;
+	-moz-box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);-webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);
+	cursor:pointer;
+	text-decoration: none;
+}
+
+#login .account {
+	float: left;
+	width: 95%;
+	height: 20px;
+	color:#FFFFFF;
+	
+	font-size: 1.0625em;
+	font-weight: 700;
+	font-family: sans-serif;
+	text-align: center;
+	margin-top: 71px;
+	mmargin-left: 5%;
+	
+	letter-spacing: 2px;
+}
+.head {
+display: none;
+}
+.userPass {
+	float: left;
+	width: 95%;/*34.375em;*/
+	margin-top: 145px;
+}
+.userPass .boxLeft{
+	float: left;
+	width: 190px;
+	height: 20px;
+	margin-right: 10px;
+	margin-left: 10px;
+	text-align: right;
+}
+.userPass .boxLeft2{
+	float: left;
+	width: 190px;
+	height: 20px;
+	margin-right: 10px;
+	margin-left: 10px;
+	margin-top: 5px;
+	text-align: right;
+}
+.userPass .boxLeft3{
+	float: left;
+	width: 120px;
+	height: 20px;
+	margin-right: 10px;
+	margin-left: 10px;
+	text-align: right;
+}
+.userPass .boxLeft4{
+	float: left;
+	width: 120px;
+	height: 20px;
+	margin-right: 10px;
+	margin-left: 10px;
+	margin-top: 5px;
+	text-align: right;
+}
+.text {
+	font-size: 1.0625em;
+	font-weight: 400;
+	font-family: sans-serif;
+	color: #000000;
+}
+/*END LOGIN*/
+
+/*ENTRY PAGE*/
 
 
+.wrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -119px;
+}
 
+#header2{
+	
+	min-height: 67px;
+	height: 67px !important;
+	
+	width: 100%;
+	min-width: 100%;
+	position: relative;
+	background-image: url(../img/backBlack2x67.png);
+	background-repeat: repeat-x;
+	background-position: left;
+}
+#header2 div.inner {
+	width: 1024px;
+	min-width: 1024px;
+	min-height: 67px;
+	height: 67px !important;	
+	position:relative;
+	clear:both;
+	text-align:left;
+	margin:0 auto;
+}
+#logo {
+	float: left;
+	width: 309px;
+	height: 57px;
+	margin-top: 7px;
+	background-image: url(../img/eAutoPacific309x57.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+#header2 div.inner div.butt {
+	float: left;
+	
+	width: 21.97265625%;/*225px;*/
+	height: 35px;
+	margin-top: 12px;
+	margin-left: 92.5px;
+	margin-right: 40px;
+}
+.competitive {
+	font-family: sans-serif;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: 2px;
+	width: 225px;
+	height: 10px;
+	text-align: center;
+	padding-top: 15px;
+}
+.sales {
+	font-family: sans-serif;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: 2px;
+	width: 225px;
+	height: 10px;
+	text-align: center;
+	padding-top: 10px;
+}
+.arrow {
+	float: right;
+	width: 8px;
+	height: 7px;
+	margin-right: 20px;
+	margin-top: -6px;
+	background-image: url(../img/down8x7.png);
+	background-repeat: no-repeat;
+	background-position: top;
+}
+.arrowTwo {
+	float: left;
+	width: 8px;
+	height: 7px;
+	margin-left: 23px;
+	margin-top: -6px;
+	background-image: url(../img/down8x7.png);
+	background-repeat: no-repeat;
+	background-position: top;
+}
+#header2 .inner div.buttTwo {
+	float: left;
+	width: 21.97265625%;/*225px;*/
+	height: 35px;
+	margin-top: 12px;
+	margin-left: 40px;
+}
+#logout {
+	float: right;
+	margin-top: 10px;
+	width: 30px;
+	height: 30px;
+	margin-right: 3px;
+	background-image: url(../img/stock_lock_open30x30.png);
+	background-repeat: no-repeat;
+	background-position: left;
+}
+#twitterEmail {
+	float: right;
+	margin-top: 10px;
+	width: 52px;
+	height: 26px;
+	background-image: url(../img/twitterEmail52x26.png);
+	background-repeat: no-repeat;
+	background-position: left;
+}
 
+/*END ENTRY*/
+/*FOOTER*/
+.footer, .push {
+height: 119px;
+clear: both;
+}
+.footer {
+height: 119px;
+width: 100%;
+position: relative;
+overflow: hidden;
+background-color: #000000;
+background-image: url(../img/footback100x150.png);
+background-repeat: repeat-x;
+background-position: left;
+}	
+.footer div.inner{
+	height: 119px;
+	
+	max-width: 1024px;
+	position:relative;
+	clear:both;
+	text-align:left;
+	margin:0 auto;
+}
+
+#loginLinkBox  {
+	float: left;
+	max-width: 1024px;
+	height: 119px;
+	padding-left: 5%;
+	padding-right: 5%;
+	margin-top: 10px;
+}
+#loginLinkBox div.boxLeft {
+	float: right;
+	height: 20px;
+	margin-top: 23px;
+	padding-top: 7px;
+	margin-right: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	overflow: hidden;
+	font-size: 14px;
+	font-family: sans-serif;
+	line-height: 100%;
+	color: #FFFFFF;
+	font-weight: 700;
+}
+#loginLinkBox div.boxLeft:hover {
+	background-color: #333333;
+}
+
+#autoPacificBrand {
+	float: right;
+	width: 107px;
+	height: 75px;
+	margin-left: 7px;
+	background-image: url(../img/AutoPacific-Image107x75_2.png);
+	background-repeat: no-repeat;
+	background-position: top;
+}
+#eAutoPacificBrand {
+	float: left;
+	width: 100px;
+	height: 19px;
+	margin-top: 26px;
+	margin-left: 22px; 
+	margin-right: 450px;
+	background-image: url(../img/eAutoPacificLogo008052011_100x19.png);
+}
 
 
 

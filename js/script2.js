@@ -53,10 +53,52 @@ function showResponse(responseText, statusText, xhr, $form)  {
     // is the json data object returned by the server 
  
     //alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + '\n\nThe output div should have already been updated with the responseText.');
-    if(responseText == "eAutoPacific"){
     setTimeout("window.location = 'index';",100); 
-    }
 }
+
+/* Author:
+http://www.erichynds.com/jquery/a-new-and-improved-jquery-idle-timeout-plugin/
+*/
+$("#dialog").dialog({
+	autoOpen: false,
+	modal: true,
+	width: 400,
+	height: 200,
+	closeOnEscape: false,
+	draggable: false,
+	resizable: false,
+	buttons: {
+		'Yes, Keep Working': function(){
+			$(this).dialog('close');
+		},
+		'No, Logoff': function(){
+			// fire whatever the configured onTimeout callback is.
+			// using .call(this) keeps the default behavior of "this" being the warning
+			// element (the dialog in this case) inside the callback.
+			$.idleTimeout.options.onTimeout.call(this);
+		}
+	}
+});
+
+// cache a reference to the countdown element so we don't have to query the DOM for it on each ping.
+var $countdown = $("#dialog-countdown");
+
+// start the idle timer plugin
+$.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
+	idleAfter: 300, //plugin.js line 1128 is multiplied by 1000
+	pollingInterval: 120,  //plugin.js line 1179 is multiplied by 1000
+	keepAliveURL: 'alive.php',
+	serverResponseEquals: 'OK',
+	onTimeout: function(){
+		window.location = "LOGIN"; //timeout will direct user to the login page
+	},
+	onIdle: function(){
+		$(this).dialog("open");
+	},
+	onCountdown: function(counter){
+		$countdown.html(counter); // update the counter
+	}
+});
 
 
 

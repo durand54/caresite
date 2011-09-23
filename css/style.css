@@ -395,7 +395,7 @@ display: none;
 	
 	width: 21.97265625%;/*225px;*/
 	height: 35px;
-	margin-top: 12px;
+	margin-top: 28px;
 	margin-left: 92.5px;
 	margin-right: 40px;
 }
@@ -408,7 +408,7 @@ display: none;
 	width: 225px;
 	height: 10px;
 	text-align: center;
-	padding-top: 15px;
+	/*padding-top: 5px;*/
 }
 .sales {
 	font-family: sans-serif;
@@ -466,6 +466,93 @@ display: none;
 	background-image: url(../img/twitterEmail52x26.png);
 	background-repeat: no-repeat;
 	background-position: left;
+}
+#mainContent {
+	min-height: 1024px;
+	height: 1024px !important;
+	
+	width: 100%;
+	min-width: 100%;
+	position: relative;
+}
+#mainContent .inner {
+	
+	max-width: 1024px;
+	min-height: 1024px;
+	height: 1024px !important;	
+	position:relative;
+	clear:both;
+	text-align:left;
+	margin:0 auto;
+}
+
+#buttBar {
+	border-top-width: 0px;
+	border-style: solid;
+	border-left-width: 0px;
+	border-bottom-width: 1px;
+	border-right-width: 0px;
+	border-color: black;
+	float: left;
+	width: 100%;
+	height: 30px;
+	display: none;
+	}
+#buttBar .butt {
+	float: left;
+	height: 20px;
+	padding-top: 7px;
+	margin-right: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	overflow: hidden;
+	font-size: 16px;
+	font-family: sans-serif;
+	line-height: 100%;
+	color: #000000;
+	font-weight: 400;
+}
+#buttBar #make {
+	margin-left: 96px;
+}
+#arrayBox {
+	width: 100%;
+	min-height: 120px;
+	padding-bottom: 10px;
+	border-top-width: 0px;
+	border-style: solid;
+	border-left-width: 0px;
+	border-bottom-width: 1px;
+	border-right-width: 0px;
+	border-color: black;
+	background-color: pink;
+	display: none;
+}
+#arrayBox .arrayBoxes {
+	float: left;
+	margin-top: 3px;
+	/*height: 175px;*/
+	margin-left: 3px;
+}
+#arrayBox .northAmericanArrayBoxes1{
+	margin-left: 36px;
+}
+.button {
+	float: left;
+	height: 1.05em;
+	min-width: 102px;
+	padding-left: 2px;
+	padding-right: 2px;
+	margin-right: .25px;
+	margin-top: 5px;
+	font-size: 12px;
+	font-family: sans-serif;
+	line-height: 100%;
+	color: #000000;
+	font-weight: 400;
+}
+.clear{
+	clear: both;
 }
 
 /*END ENTRY*/

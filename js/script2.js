@@ -100,6 +100,36 @@ $.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
 	}
 });
 
-
+//competitive button
+			$('#competitive').mouseover(function() {
+  			$('#competitive').css('cursor', 'pointer');
+  			$('#competitive').css({'background-color':'#333333'});
+			});
+			
+			$('#competitive').mouseout(function() {
+  			$('#competitive').css('cursor', 'default');
+  			var isVisible = $("#buttBar").is(':visible');
+  			if(isVisible){
+  			$('#competitive').css({'background-color':'#333333'});
+  			} else {
+  			
+  			$('#competitive').css({'background-color':''});
+  			}
+			});
+			
+			$('#competitive').click(function(event) {
+   			event.preventDefault();
+   			
+  			$('#competitive').css({'background-color':'#333333'});
+  			
+      		$("#buttBar").slideToggle('fast');
+  			});
+  			
+  			$('#make').click(function(event){
+  			event.preventDefault();
+  			
+  			$('#competitive').css('cursor', 'pointer');
+  			$("#arrayBox").slideToggle('slow');
+  			});
 
 

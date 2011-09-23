@@ -54,9 +54,26 @@
 		<div id="twitterEmail"></div>
 		</div>
 		</div>
-  <div class="push"></div>
-  </div>
+	<div id="mainContent">
+	<div class="inner">
+	
+		<div id="buttBar">
+		<div class="butt" id="make">make</div>
+		<div class="butt segment">segment</div>
+		<div class="butt customSegment">custom segment</div>
+		<div class="butt comparison">comparison</div>
+		</div>
 		
+		<div class="clear"></div>
+		<div id="arrayBox">
+		<?php echo $arraySet; ?>
+		</div>
+	</div>
+		
+  		
+	</div>
+	
+	<div class="push"></div>
   </header>
   <footer>
 	<div class="footer">

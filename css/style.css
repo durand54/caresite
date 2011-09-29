@@ -512,7 +512,7 @@ display: none;
 	color: #000000;
 	font-weight: 400;
 }
-#buttBar #make {
+#buttBar .make {
 	margin-left: 96px;
 }
 #arrayBox {
@@ -525,7 +525,6 @@ display: none;
 	border-bottom-width: 1px;
 	border-right-width: 0px;
 	border-color: black;
-	background-color: pink;
 	display: none;
 }
 #arrayBox .arrayBoxes {
@@ -544,17 +543,66 @@ display: none;
 	padding-left: 2px;
 	padding-right: 2px;
 	margin-right: .25px;
-	margin-top: 5px;
+	padding-top: 3px;
+	padding-bottom: 2px;
 	font-size: 12px;
 	font-family: sans-serif;
 	line-height: 100%;
 	color: #000000;
 	font-weight: 400;
+	cursor: pointer;
+}
+#segmentBox {
+	width: 100%;
+	min-height: 130px;
+	padding-bottom: 10px;
+	border-top-width: 0px;
+	border-style: solid;
+	border-left-width: 0px;
+	border-bottom-width: 1px;
+	border-right-width: 0px;
+	border-color: black;
+	display: none;
+}
+#segmentBox .arrayBoxes {
+	float: left;
+	margin-top: 3px;
+	/*height: 175px;*/
+	margin-left: 3px;
+	margin-right: 15px;
+}
+#segmentBox .northAmericanArrayBoxes1{
+	margin-left: 36px;
+}
+.segmentButton {
+	float: left;
+	height: 1.05em;
+	min-width: 122px;
+	padding-left: 2px;
+	padding-right: 2px;
+	margin-right: .25px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-size: 12px;
+	font-family: sans-serif;
+	line-height: 100%;
+	color: #000000;
+	font-weight: 400;
+	cursor: pointer;
 }
 .clear{
 	clear: both;
 }
+/**** Isotope filtering ****/
 
+.isotope-item {
+  z-index: 2;
+}
+
+.isotope-hidden.isotope-item {
+  pointer-events: none;
+  z-index: 1;
+}
 /*END ENTRY*/
 /*FOOTER*/
 .footer, .push {

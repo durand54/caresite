@@ -58,7 +58,7 @@
 	<div class="inner">
 	
 		<div id="buttBar">
-		<div class="butt" id="make">make</div>
+		<div class="butt make">make</div>
 		<div class="butt segment">segment</div>
 		<div class="butt customSegment">custom segment</div>
 		<div class="butt comparison">comparison</div>
@@ -68,6 +68,13 @@
 		<div id="arrayBox">
 		<?php echo $arraySet; ?>
 		</div>
+		
+		<div class="clear"></div>
+		<div id="segmentBox">
+		<?php echo $SegmentArraySet; ?>
+		</div>
+		
+		<div class="hello"></div>
 	</div>
 		
   		

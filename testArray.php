@@ -1,5 +1,10 @@
 <?php
 ini_set('display_errors','On');
+
+$var = '';
+if(!$var){
+echo 'hello!';
+}
 require_once('eapInc/configOS.php');
 
 $cbgid = 1;

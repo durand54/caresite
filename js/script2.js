@@ -1411,8 +1411,86 @@ $.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
   			$('#competitive').css({'background-color':'#333333'});
   			
       		$("#buttBar").slideToggle('fast');
+      		
+      		var isVisible = $("#SFbuttBar").is(':visible');
+      		var isVisibleB = $("#SFsegmentBar").is(':visible');
+      		var isVisibleC = $("#SFmakeBar").is(':visible');
+      		
+      		
+      		if(isVisible = true){
+      		$('#SFbuttBar').slideUp('fast');
+      		$("#SFbuttBar").css('display','none');
+      		}
+      		
+      		if(isVisibleB = true){
+  			$("#SFsegmentBox").slideToggle('fast');
+  			$("#SFsegmentBox").css('display','none');
+  			}
+  			
+  			
+  			if(isVisibleC = true){
+  			$("#SFmakeBox").slideUp('fast');
+  			$("#SFmakeBox").css('display','none');
+  			} 
+      		
   			});
   			
+
+//sales forecast button
+			$('#sales').mouseover(function() {
+  			$('#sales').css('cursor', 'pointer');
+  			$('#sales').css({'background-color':'#333333'});
+			});
+			
+			$('#sales').mouseout(function() {
+  			$('#sales').css('cursor', 'default');
+  			var isVisible = $("#SFbuttBar").is(':visible');
+  			if(isVisible){
+  			$('#sales').css({'background-color':'#333333'});
+  			} else {
+  			
+  			$('#sales').css({'background-color':''});
+  			}
+			});
+			
+			$('#sales').click(function(event) {
+   			event.preventDefault();
+   			
+  			$('#sales').css({'background-color':'#333333'});
+  			
+      		$("#SFbuttBar").slideToggle('fast');
+      		
+      		var isVisible = $("#buttBar").is(':visible');
+      		var isVisibleB = $("#segmentBar").is(':visible');
+      		var isVisibleC = $("#customSegmentBar").is(':visible');
+      		var isVisibleD = $("#makeBar").is(':visible');
+      		
+      		
+      		if(isVisible = true){
+      		$('#buttBar').slideUp('fast');
+      		$("#buttBar").css('display','none');
+      		}
+      		
+      		if(isVisibleB = true){
+  			$("#segmentBox").slideToggle('fast');
+  			$("#segmentBox").css('display','none');
+  			}
+  			
+  			
+  			if(isVisibleC = true){
+  			$("#customSegmentBox").slideToggle('fast');
+  			$("#customSegmentBox").css('display','none');
+  			}
+  			
+  			
+  			if(isVisibleD = true){
+  			$("#makeBox").slideUp('fast');
+  			$("#makeBox").css('display','none');
+  			} 
+  			
+  			});
+ 
+//competitive make 			
   			$('.make').mouseover(function() {
   			$('.make').css('cursor', 'pointer');
   			$('.make').css({'background-color':'#4CBCFA'});
@@ -1426,32 +1504,47 @@ $.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
   			$('.make').click(function(event){
   			
   			$('.butt').css({'background-color':'','font-weight':'400'});
+  			$('.button').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});
   			
   			$('.make').css({'font-weight':'700'});
   			event.preventDefault();
   			var isVisible = $('#segmentBox').is(':visible');
+  			var isVisibleB = $('#customSegmentBox').is(':visible');
+  			
+  			
+  			$('.segmentCallout').remove();
+  			$("#makeBox").slideToggle('slow');
+  			
   			if(isVisible = true){
   			$("#segmentBox").slideToggle('fast');
   			$("#segmentBox").css('display','none');
-  			$('.segmentCallout').remove();
-  			$("#arrayBox").slideToggle('slow');
-  			} else {
-  			$("#arrayBox").slideToggle('slow');
+  			}
+  			
+  			
+  			if(isVisibleB = true){
+  			$("#customSegmentBox").slideToggle('fast');
+  			$("#customSegmentBox").css('display','none');
   			}
   			
   			});
   			
-  			
+//competitive make buttons  			
   			$('.button').click(function(){
   			$('.button').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});	
 			  $(this).css({'background-color':'#4CBCFA','font-size':'14px','font-weight':'700'});
 			  var selector = $(this).attr('title');
 			  var data = $(this).attr('data-filter');
-			  $('.hello').append("<div class='segmentCallout'>"+selector+'  '+data+"</div>");
+			  //$('.hello').append("<div class='segmentCallout'>"+selector+'  '+data+"</div>");
+			  
+  			  $('.segmentCallout').remove();
+			  $.get("index/make/"+data,function(txt){
+			  $('.hello').append("<div class='segmentCallout'>"+txt+"</div>");
+			  });
 			  });
 			  
 			
   			
+//competitive segment
   			$('.segment').mouseover(function() {
   			$('.segment').css('cursor', 'pointer');
   			$('.segment').css({'background-color':'#4CBCFA'});
@@ -1465,17 +1558,25 @@ $.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
   			$('.segment').click(function(event){
   			
   			$('.butt').css({'background-color':'','font-weight':'400'});
+  			$('.segmentButton').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});	
   			
   			$('.segment').css({'font-weight':'700'});
   			event.preventDefault();
-  			var isVisible = $('#arrayBox').is(':visible');
-  			if(isVisible = true){
-  			$("#arrayBox").slideToggle('fast');
-  			$("#arrayBox").css('display','none');
+  			var isVisible = $('#makeBox').is(':visible');
+  			var isVisibleB = $('#customSegmentBox').is(':visible');
+  			
+  			
   			$('.segmentCallout').remove();
   			$("#segmentBox").slideToggle('slow');
-  			} else {
-  			$("#segmentBox").slideToggle('slow');
+  			
+  			if(isVisible = true){
+  			$("#makeBox").slideToggle('fast');
+  			$("#makeBox").css('display','none');
+  			}
+  			
+  			if(isVisibleB = true){
+  			$("#customSegmentBox").slideToggle('fast');
+  			$("#customSegmentBox").css('display','none');
   			}
   			
   			
@@ -1484,6 +1585,7 @@ $.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
   			
   			
   			
+//competitive segment buttons
   			$('.segmentButton').click(function(){
   			$('.segmentButton').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});	
 			  $(this).css({'background-color':'#4CBCFA','font-size':'14px','font-weight':'700'});
@@ -1493,4 +1595,54 @@ $.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
 			  });
   			
   			
+			
+  			
+  			
+//competitive custom segment
+  			$('.customSegment').mouseover(function() {
+  			$('.customSegment').css('cursor', 'pointer');
+  			$('.customSegment').css({'background-color':'#4CBCFA'});
+			});
+  			
+  			$('.customSegment').mouseout(function() {
+  			$('.customSegment').css('cursor', 'default');
+  			$('.customSegment').css({'background-color':''});
+  			});
+  			
+  			$('.customSegment').click(function(event){
+  			
+  			$('.butt').css({'background-color':'','font-weight':'400'});
+  			$('.customSegmentButton').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});
+  			$('.customSegment').css({'font-weight':'700'});
+  			event.preventDefault();
+  			var isVisible = $('#makeBox').is(':visible');
+  			var isVisibleB = $('#segmentBox').is(':visible');
+  			
+  			
+  			
+  			
+  			$('.segmentCallout').remove();
+  			$("#customSegmentBox").slideToggle('slow');
+  			
+  			if(isVisible = true){
+  			$("#makeBox").slideUp('fast');
+  			$("#makeBox").css('display','none');
+  			} 
+  			
+  			if(isVisibleB = true){
+  			$("#segmentBox").slideUp('fast');
+  			$("#segmentBox").css('display','none');
+  			}
+  			
+  			});
+  			
+  			
 
+//competitive segment buttons
+  			$('.customSegmentButton').click(function(){
+  			$('.customSegmentButton').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});	
+			  $(this).css({'background-color':'#4CBCFA','font-size':'14px','font-weight':'700'});
+			  var selector = $(this).attr('title');
+			  var data = $(this).attr('data-filter');
+			  $('.hello').append("<div class='segmentCallout'>"+selector+'  '+data+"</div>");
+			  });

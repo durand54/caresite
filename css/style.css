@@ -419,7 +419,7 @@ display: none;
 	width: 225px;
 	height: 10px;
 	text-align: center;
-	padding-top: 10px;
+	/*padding-top: 10px;*/
 }
 .arrow {
 	float: right;
@@ -445,7 +445,7 @@ display: none;
 	float: left;
 	width: 21.97265625%;/*225px;*/
 	height: 35px;
-	margin-top: 12px;
+	margin-top: 28px;
 	margin-left: 40px;
 }
 #logout {
@@ -486,6 +486,7 @@ display: none;
 	margin:0 auto;
 }
 
+/**BATTLEFIELD*/
 #buttBar {
 	border-top-width: 0px;
 	border-style: solid;
@@ -515,7 +516,7 @@ display: none;
 #buttBar .make {
 	margin-left: 96px;
 }
-#arrayBox {
+#makeBox {
 	width: 100%;
 	min-height: 120px;
 	padding-bottom: 10px;
@@ -527,13 +528,13 @@ display: none;
 	border-color: black;
 	display: none;
 }
-#arrayBox .arrayBoxes {
+#makeBox .arrayBoxes {
 	float: left;
 	margin-top: 3px;
 	/*height: 175px;*/
 	margin-left: 3px;
 }
-#arrayBox .northAmericanArrayBoxes1{
+#makeBox .northAmericanArrayBoxes1{
 	margin-left: 36px;
 }
 .button {
@@ -590,9 +591,160 @@ display: none;
 	font-weight: 400;
 	cursor: pointer;
 }
+
+
+#customSegmentBox {
+	width: 100%;
+	min-height: 130px;
+	padding-bottom: 10px;
+	border-top-width: 0px;
+	border-style: solid;
+	border-left-width: 0px;
+	border-bottom-width: 1px;
+	border-right-width: 0px;
+	border-color: black;
+	display: none;
+}
+#customSegmentBox .arrayBoxes {
+	float: left;
+	margin-top: 3px;
+	/*height: 175px;*/
+	margin-left: 3px;
+	margin-right: 15px;
+}
+#customSegmentBox .northAmericanArrayBoxes1{
+	margin-left: 36px;
+}
+.customSegmentButton {
+	float: left;
+	height: 1.05em;
+	min-width: 122px;
+	padding-left: 2px;
+	padding-right: 2px;
+	margin-right: .25px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-size: 12px;
+	font-family: sans-serif;
+	line-height: 100%;
+	color: #000000;
+	font-weight: 400;
+	cursor: pointer;
+}
+/*end battlefield*/
+
+/*start salesForecast*/
+
+#SFbuttBar {
+	border-top-width: 0px;
+	border-style: solid;
+	border-left-width: 0px;
+	border-bottom-width: 1px;
+	border-right-width: 0px;
+	border-color: black;
+	float: left;
+	width: 100%;
+	height: 30px;
+	display: none;
+	}
+#SFbuttBar .butt {
+	float: right;
+	height: 20px;
+	padding-top: 7px;
+	margin-left: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	overflow: hidden;
+	font-size: 16px;
+	font-family: sans-serif;
+	line-height: 100%;
+	color: #000000;
+	font-weight: 400;
+}
+#SFbuttBar .segmentSF {
+	margin-right: 96px;
+}
+#SFMakearrayBox {
+	width: 100%;
+	min-height: 120px;
+	padding-bottom: 10px;
+	border-top-width: 0px;
+	border-style: solid;
+	border-left-width: 0px;
+	border-bottom-width: 1px;
+	border-right-width: 0px;
+	border-color: black;
+	display: none;
+}
+#SFMakearrayBox .arrayBoxes {
+	float: left;
+	margin-top: 3px;
+	/*height: 175px;*/
+	margin-left: 3px;
+}
+#SFMakearrayBox .northAmericanArrayBoxes1{
+	margin-left: 36px;
+}
+.SFMakebutton {
+	float: left;
+	height: 1.05em;
+	min-width: 102px;
+	padding-left: 2px;
+	padding-right: 2px;
+	margin-right: .25px;
+	padding-top: 3px;
+	padding-bottom: 2px;
+	font-size: 12px;
+	font-family: sans-serif;
+	line-height: 100%;
+	color: #000000;
+	font-weight: 400;
+	cursor: pointer;
+}
+#SFSegmentBox {
+	width: 100%;
+	min-height: 130px;
+	padding-bottom: 10px;
+	border-top-width: 0px;
+	border-style: solid;
+	border-left-width: 0px;
+	border-bottom-width: 1px;
+	border-right-width: 0px;
+	border-color: black;
+	display: none;
+}
+#SFSegmentBox .arrayBoxes {
+	float: left;
+	margin-top: 3px;
+	/*height: 175px;*/
+	margin-left: 3px;
+	margin-right: 15px;
+}
+#SFSegmentBox .northAmericanArrayBoxes1{
+	margin-left: 36px;
+}
+.SFSegmentButton {
+	float: left;
+	height: 1.05em;
+	min-width: 122px;
+	padding-left: 2px;
+	padding-right: 2px;
+	margin-right: .25px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-size: 12px;
+	font-family: sans-serif;
+	line-height: 100%;
+	color: #000000;
+	font-weight: 400;
+	cursor: pointer;
+}
+/*end salesForecast*/
 .clear{
 	clear: both;
 }
+/*END ENTRY*/
+
 /**** Isotope filtering ****/
 
 .isotope-item {
@@ -603,7 +755,9 @@ display: none;
   pointer-events: none;
   z-index: 1;
 }
-/*END ENTRY*/
+/*END .isotope*/
+
+
 /*FOOTER*/
 .footer, .push {
 height: 119px;

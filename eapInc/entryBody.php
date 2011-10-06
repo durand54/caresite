@@ -65,13 +65,26 @@
 		</div>
 		
 		<div class="clear"></div>
-		<div id="arrayBox">
+	
+		<div id="SFbuttBar">
+		<div class="butt segmentSF">segment</div>
+		<div class="butt makeSF">make</div>
+		</div>
+		
+		<div class="clear"></div>
+		
+		<div id="makeBox">
 		<?php echo $arraySet; ?>
 		</div>
 		
 		<div class="clear"></div>
 		<div id="segmentBox">
 		<?php echo $SegmentArraySet; ?>
+		</div>
+		
+		<div class="clear"></div>
+		<div id="customSegmentBox">
+		<?php echo $customSegmentArraySet; ?>
 		</div>
 		
 		<div class="hello"></div>

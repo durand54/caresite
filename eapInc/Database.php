@@ -282,6 +282,50 @@ class Database {
 	}
 	
 	/**
+	 * UPDATE or INSERT a row. 
+	 * If an index is passed the entry will be updated, otherwise it will be created.
+	 * 
+	 * @param array $entry Associative array containing the entry to be saved.
+	 * @param string $table Table to update.
+	 * @param string $index Use this as the index. Use caution if you change this as multiple entries can be updated at once.
+	 * @return mixed 'id' of the inserted or updated entry or FALSE.
+	 */
+	public function saveComment($entry, $table, $index='id', $subscriber='subscriber',$date='date'){
+		
+		$table = $this->prefix($table);
+		$values = "";
+		$sep = "";
+		foreach($entry as $key => $value){
+			$values .= $sep . "`" . $key . "` = '" . $this->clean($value) . "'";
+			$sep = ", ";
+		}
+		
+		if($this->get_by_key($index, $entry[$index], $entry[$subscriber],$entry[$date], $table)){
+			//Updating existing.
+			$query = "UPDATE $table SET $values WHERE $index = '".$entry[$index]."' AND $subscriber = '".$entry[$subscriber]."' AND $date = '".$entry[$date]."'";
+
+			if($this->query($query)){
+				return $entry[$index];
+			}
+			else {
+				$this->error($query);
+				return FALSE;
+			}
+		}
+		else {
+			//Adding new.
+			$query = "INSERT INTO $table SET $values";
+			if($this->query($query)){
+				return mysql_insert_id();
+			}
+			else {
+				$this->error($query);
+				return FALSE;
+			}
+		}
+	}
+	
+	/**
 	 * DELETE a row.
 	 * 
 	 * @param string $value Delete the row with this value for the $index.

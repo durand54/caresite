@@ -5,6 +5,7 @@ date_default_timezone_set('America/Los_Angeles');
 
 require_once('eapInc/configOS.php');
 $makeID = mysql_escape_string($_GET['m']);
+$makeName = mysql_escape_string($_GET['n']);
 $makeID2 = $makeID;
 $cID = $_COOKIE['cid'];
 if(!$cID){
@@ -14,14 +15,16 @@ header('Location:'.$target3);
 
 $cbgid = 1;
 $start_year = 1987;
-$max = $db->get("SELECT MAX(SalesYear) AS MaxYear FROM salesforecast WHERE SalesValue > 0");
+$max = $db->get("SELECT MAX(LineYear) AS MaxYear FROM vehiclebattlegroundcycle WHERE LineYear != 'Y1' AND LineYear != 'Y2' AND LineYear != 'Y3'");
 if($max){
 	while(list($key,$value) = each($max)){
 	$end_year = $value['MaxYear'];
+	$end_year = $end_year+1;
 	}
 }
+$end_year = 2032;
 $makeArray = array();
-$competitiveMakesOne = $db->get("SELECT * from  vehicles as v where v.makeid='$makeID' and v.cbgid='$cbgid' and DeleteFlag=0 order by v.VehicleName ");
+$competitiveMakesOne = $db->get("SELECT * from  vehicles as v where v.makeid='$makeID' and v.cbgid='$cbgid' and DeleteFlag=0 and ActiveFlag='1' and sfcsactive='1' order by v.VehicleName ");
 $carArray = array();
 
 if($competitiveMakesOne){
@@ -32,36 +35,8 @@ if($competitiveMakesOne){
 			array_push($carArray,$car);
 			}
 }
-$counter = count($carArray);
-for($i=0;$i<$counter;$i++){
-	$car = $carArray[$i][0];
-	$carName = $carArray[$i][1];
-	echo "<br /><br />this is CAR $carName<br />";
-	$competitiveMakes = $db->get("select * from vehiclebattlegroundcycle where VehicleID = '$car' and LineYear >= $start_year and LineYear <= $end_year");
-			if($competitiveMakes){
-    		while(list($key2,$value2) = each($competitiveMakes)){
-    		$lineYear = $value2['LineYear'];
-    		$cycleText = $value2['CycleText'];
-    		echo "$lineYear - $cycleText<br />";
-    		$makeModel = array($car=>$lineYear,$cycleText);
-    		array_push($makeArray,$makeModel);
-    		}
-    		}
-}
-/*if($competitiveMakes){
-    		while(list($key,$value) = each($competitiveMakes)){
-    		$vehicleID = $value['VehicleID'];
-    		$lineYear = $value['LineYear'];
-    		$cycleText = $value['CycleText'];
-    		$makeModel = array($vehicleID,$lineYear,$cycleText);
-    		array_push($makeArray,$makeModel);
-    		}
-    		}
-unset($competitiveMakes);
-
-
-
-$logoArray = array();
+unset($competitiveMakesOne);
+$logoFileName = '';
 $logoMake = $db->get("SELECT * from brandlogo WHERE makeid = '$makeID2'");
 if($logoMake){
 	while(list($key,$value) = each($logoMake)){
@@ -71,108 +46,186 @@ if($logoMake){
     		}
 }
 unset($logoMake);
-
-
-$countCM = count($makeArray);
-$makeArray2 = $makeArray;
-$makeArray3 = $makeArray;
-$counter = floor($countCM/7);
-$remainder = $countCM % 7;
-
-
-for($i=0;$i<$remainder;$i++){
-	array_pop($makeArray);
+$years = ($end_year-$start_year)+1;
+$size = $years*72;
+$years = "<div id='vehicleYears'>\n";
+$years .= "<div class='vehicle'>Vehicle</div>\n";
+$years .= "<div class='yearHolder'>\n";
+$years .= "<div id='yearScroller' style='width:".$size."px; height: 18px;' >\n";
+for($i=$start_year;$i<$end_year;$i++){
+	$years .=<<<YER
+	<div class='years'>$i</div>
+YER;
 }
+$years .= "</div>\n</div>\n</div>\n<div class='clear'></div>\n";
+$yearsArray = array();
+for($k=$start_year;$k<$end_year;$k++){
 
-$counted = $countCM-$remainder;
-
-for($e=0;$e<$counted;$e++){
-	array_shift($makeArray2);
+array_push($yearsArray,$k);
 }
+if($logoFileName != ''){
+$logoing = "<div class='logo $makeID2'><img src='/img/logos/$logoFileName' alt='$brandLogoID $categoryItemID $makeID2' height='60px'/></div>";
+} else {
+$logoing = "<div class='logo $makeID2' style='margin-top: 30px;'><img src='/img/eAutoPacific309x57_10172011.png' alt='$makeID2' width='200px'/></div>";
+}
+$vehicleBox =<<<TOP
+<div id="make">
+<div id="modelYearTop">
+<div id="leftArrow"><img src='/img/leftArrow.jpg' width='35px' /></div>
+$logoing
+<div id="rightArrow"><img src='/img/rightArrow.jpg' width='35px' /></div>
+</div>
+<div class="clear"></div>
+TOP;
+$vehicleBox .= $years;
+$vehicleBox .= "<div id='vehicleMY'>\n";
+$vehicleYear = "<div id='yearInfoBox'>\n";
+$counter = count($carArray);
+$vehicleArray = array();
+for($i=0;$i<$counter;$i++){
+	$car = $carArray[$i][0];
+	$carName = $carArray[$i][1];
+	$lookout = array("$makeName","/");
+	$carReplace = array("$makeName<br>","/<br>");
+	$carName = str_replace($lookout, $carReplace, $carName);
+	$vehicleBox .=<<<CAR
+		<div class="model" data-filter="$car" title="$carName"><p class='modelText'>$carName</div>
+CAR;
 
-
-$p = 7;
-$t = 0;
-
-$arraySet = '';
-$arraySet .= "<div class='logoBrand $makeID2'><img src='/img/logos/$logoFileName' alt='$brandLogoID $categoryItemID $makeID2' /></div>";
-for($e = 0;$e<$counted;$e++){
-	$j = $e%7;
-	
-	$makeID = $makeArray[$e][0];
-	$vehicleID = $makeArray[$e][1];
-	$vehicleName = $makeArray[$e][2];
-	$lineYear = $makeArray[$e][3];
-	$cycleText = $makeArray[$e][4];
-	
-	switch ($j) {
-	case "0":
-	if($e == 0){
-	$arraySet .= "<div class='arrayBoxes northAmericanArrayBoxes1'>\n";
+    		$vehicleYear .="<div class='vehicleYearBar'>\n";
+	$competitiveMakes = $db->get("select * from vehiclebattlegroundcycle where VehicleID = '$car' and LineYear >= '$start_year' and LineYear <= '$end_year'");
+			if($competitiveMakes){
+    		while(list($key2,$value2) = each($competitiveMakes)){
+    		$lineYear = $value2['LineYear'];
+    		$cycleText = $value2['CycleText'];
+    		$text = explode('<trunc>',$cycleText);
+    		$cycleTextCut = $text[0];
+    		
+    		$line = $lineYear." ".$cycleTextCut;
+    		array_push($vehicleArray,$line);
+    		/*for($k=$start_year;$k<$end_year;$k++){
+    		
+			//if($car == '5400'){
+			
+			if($k == $lineYear){
+			$vehicleYear .="<div class='yearVehicle $lineYear' data-filter='$car'><p class='yearVehicleText'>$cycleTextCut</p></div>\n";
+			} else {
+			$vehicleYear .="<div class='yearVehicle $k' data-filter='$car'></div>\n";
+			}
+			
+			
+			//}
+			
+			}*/
+			}
+    		}
+$result = array_merge($yearsArray,$vehicleArray);
+asort($result);
+$year = '';
+foreach($result as $key => $val){
+	if(is_numeric($val)){
+	if($val != $year){
+	$vehicleYear .="<div class='yearVehicle $val' ></div>\n";
+	}
 	} else {
-	$arraySet .= "<div class='arrayBoxes northAmericanArrayBoxes'>\n";
-	}
-	$arraySet .=<<<TAX
-<div class="button" data-filter="$vehicleID" title="$makeID">$vehicleName $lineYear  $cycleText</div>
-		<div class='clear'></div>
-TAX;
-	break;
-	case "1":
-	$arraySet .=<<<TAX
-<div class="button" data-filter="$vehicleID" title="$makeID">$vehicleName $lineYear  $cycleText</div>
-		<div class='clear'></div>
-TAX;
-	break;
-	case "2":
-	$arraySet .=<<<TAX
-<div class="button" data-filter="$vehicleID" title="$makeID">$vehicleName $lineYear  $cycleText</div>
-		<div class='clear'></div>
-TAX;
-	break;
-	case "3":
-	$arraySet .=<<<TAX
-<div class="button" data-filter="$vehicleID" title="$makeID">$vehicleName $lineYear  $cycleText</div>
-		<div class='clear'></div>
-TAX;
-	break;
-	case "4":
-	$arraySet .=<<<TAX
-<div class="button" data-filter="$vehicleID" title="$makeID">$vehicleName $lineYear  $cycleText</div>
-		<div class='clear'></div>
-TAX;
-	break;
-	case "5":
-	$arraySet .=<<<TAX
-<div class="button" data-filter="$vehicleID" title="$makeID">$vehicleName $lineYear  $cycleText</div>
-		<div class='clear'></div>
-TAX;
-	break;
-	case "6":
-	$arraySet .=<<<TAX
-<div class="button" data-filter="$vehicleID" title="$makeID">$vehicleName $lineYear  $cycleText</div>
-		<div class='clear'></div>
-		</div>
-		
-TAX;
-	break;
+	$year = substr($val,0,4);
+	$text = substr($val,4);
+	$vehicleYear .="<div class='yearVehicle $year' ><p class='yearVehicleText'>$text</p></div>\n";
 	}
 }
+unset($vehicleArray);
+$vehicleArray = array();
+unset($result);
+			$vehicleYear .="</div>\n<div class='clear'></div>\n";
+    	
+}
+$vehicleYear .= "</div>\n";
 
-if($remainder != 0){
-	$arraySet .= "<div class='arrayBoxes northAmericanArrayBoxes'>\n";
-	for($k = 0; $k<$remainder;$k++){
-	
-	
-	$make = $makeArray2[$k][2];
-	$makeID = $makeArray2[$k][0];
-	
-	$arraySet .=<<<TAX
-<div class="button" data-filter="$vehicleID" title="$makeID">$vehicleName $lineYear  $cycleText</div>
-		<div class='clear'></div>
-TAX;
-	
-	}
-	$arraySet .= "</div>\n";
-}
-echo $arraySet;*/
+
+$vehicleBox .= "</div>\n<div id='vehicleMYHolder'>$vehicleYear</div>\n</div>\n";
+$vehicleBox .=<<<SCR
+	<script>
+	$('#leftArrow').mouseover(function() {
+  			$('#leftArrow').css('cursor', 'pointer');
+			});
+  			
+  			$('#leftArrow').mouseout(function() {
+  			$('#leftArrow').css('cursor', 'default');
+  			});
+  			
+  			$('#leftArrow').click(function(event){
+  			var scrolling = $('#yearScroller').margin();
+  			var positions = scrolling.left;
+  			var sizeWidth = $size;
+  			var size = positions+427;
+  			if(size>0){
+  			size = 10;
+  			}
+  			
+  			//alert(positions+' '+sizeWidth+' '+size);
+  			$("#yearScroller").css({'margin-left': size});
+  			$('#yearInfoBox').css({'margin-left': size});
+  			event.preventDefault();
+  			
+  			  			
+  			});
+	$('#rightArrow').mouseover(function() {
+  			$('#rightArrow').css('cursor', 'pointer');
+			});
+  			
+  			$('#rightArrow').mouseout(function() {
+  			$('#rightArrow').css('cursor', 'default');
+  			});
+  			
+  			$('#rightArrow').click(function(event){
+  			var scrolling = $('#yearScroller').margin();
+  			var positions = scrolling.left;
+  			var sizeWidth = $size;
+  			var size = positions-427;
+  			if(size<-2310){
+  			size = -2350;
+  			}
+  			
+  			//alert(positions+' '+sizeWidth+' '+size);
+  			$("#yearScroller").css({'margin-left': size});
+  			$('#yearInfoBox').css({'margin-left': size});
+  			event.preventDefault();
+  			
+  			  			
+  			});
+			  
+			$('.model').mouseover(function() {
+			$('.model').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});
+			$(this).css({'background-color':'#4CBCFA'});
+			$(this).children('modelText').css({'font-size':'14px','font-weight':'700'});
+			});
+			
+			
+			$('.model').mouseout(function() {
+			$('.model').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});
+			});
+			
+			
+			  
+			$('.model').click(function(){
+  			
+			$('.model').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});
+			$(this).css({'background-color':'#4CBCFA'});
+			$(this).children('modelText').css({'font-size':'14px','font-weight':'700'});	
+			  
+			  var selector = $(this).attr('title');
+			  var data = $(this).attr('data-filter');
+			  
+			 
+			  
+  			  $('.segmentCallout').remove();
+  			  //alert(selector+" "+data);
+			  $.get("index/basic/"+data,function(txt){
+			  $('.hello').append("<div class='segmentCallout'>"+txt+"</div>");
+			  });
+			  });
+
+	</script>
+SCR;
+echo $vehicleBox;
 ?>

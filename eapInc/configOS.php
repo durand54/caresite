@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors','On');
+//ini_set('display_errors','On');
 
 //call $BACKUP_PATH
 require_once('path.php');
@@ -32,5 +32,10 @@ $d = array(
     );
 $db = new Database($d);
 $entrydate = date("Y-m-d");
+
+
+function toEnglish($dimension){
+		return round(($dimension/25.4),1).' in';
+}
 
 ?>

@@ -77,6 +77,8 @@
 		<?php echo $arraySet; ?>
 		</div>
 		
+		
+		
 		<div class="clear"></div>
 		<div id="segmentBox">
 		<?php echo $SegmentArraySet; ?>
@@ -87,6 +89,23 @@
 		<?php echo $customSegmentArraySet; ?>
 		</div>
 		
+		<div class="clear"></div>
+		<div id="comparisonBox">
+		<?php echo $comparisonArraySet; ?>
+		</div>
+		
+		<div class="clear"></div>
+		<div id="sfMakeBox">
+		<?php echo $sfArraySet; ?>
+		</div>
+		
+		<div class="clear"></div>
+		<div id="sfSegmentBox">
+		<?php echo $sfSegmentArraySet; ?>
+		</div>
+		
+		
+		<div class="clear"></div>
 		<div class="hello"></div>
 	</div>
 		
@@ -101,9 +120,12 @@
 		<div id="loginLinkBox">
 		<div id="eAutoPacificBrand"></div>	
 		<div id="autoPacificBrand"></div>
-		<div class="boxLeft">Contact</div>
-		<div class="boxLeft">Help</div>
-		<div class="boxLeft">Privacy</div>
+		<div class="boxLeft" data-filter='contact'>Contact</div>
+		<div class="boxLeft" data-filter='help'>Help</div>
+		<div class="boxLeft" data-filter='privacy'>Privacy</div>
+		<div class="boxLeft" data-filter='downloads'>Downloads</div>
+		<div class="boxLeft" data-filter='preferences'>Preferences</div>
+		<div class="boxLeft" data-filter='autopacific'>AutoPacific</div>
 		</div>
 		
 		
@@ -130,10 +152,14 @@
 
   <!-- scripts concatenated and minified via build script -->
   <script defer src="js/plugins.js"></script>
+   <script src="js/mylibs/jquery.bbq.js"></script>
+   <script src="js/mylibs/jquery.markitup.js"></script>
   <script defer src="js/script2.js"></script>
   <!-- end scripts -->
 
-
+	<script>
+	$('.segmentCallout').replaceWith('');
+	</script>
   <!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.
        mathiasbynens.be/notes/async-analytics-snippet -->
   <script>

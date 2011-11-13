@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+</head>
+<body>
+<font face="verdana">
+<br><br>
+<div width="1300" align="center"><font color="darkblue">Download class</font></div>
+<br><br>
+<div width="1300" align="center">
+<table> 
+<tr><td width="1050">Download class is file serve script with resume support and possibility to set download speed.<br>
+					 If You found a bug, You can send mail to kami.eper@gmail.com.
+</tr></td>
+</table>
+<br>
+<table width="1050">
+<tr valign="top"><td colspan="2"><font color="darkblue">Download public functions:</font></td></tr>
+<tr valign="top"><td width="350">new Download($file);</td><td width="700">initialize the class</td></tr>
+<tr valign="top"><td width="350">rename($new_name);</td><td width="700">change file name to new name in browser or download manager</td></tr>
+<tr valign="top"><td width="350">resume();</td><td width="700">add resume support</td></tr>
+<tr valign="top"><td width="350">speed();</td><td width="700">set maximum download speed</td></tr>
+<tr valign="top"><td width="350">start();</td><td width="700">start the download</td></tr>
+<tr valign="top"><td width="350">error();</td><td width="700">returns error message or FALSE if file is served</td></tr>
+</table>
+<br><br>
+<table width="1050"> 
+<tr><td width="1050"><font color="darkblue">Download requirements:</font></td></tr>
+<tr><td>php 4.0</td></tr>
+</table>
+<br><br>
+<table>
+<tr><td width="1050"><font color="darkblue">Example Download call file</font></td></tr>
+<tr><td valign="top">
+<pre style="font-family: Verdana; font-size: 16px;">
+&lt;?php
+	include('includes/Download.class.php');
+	
+	$serve=new Download('test.pdf');
+	$serve->rename('proba.pdf');
+	$serve->resume();
+	$serve->speed(256);
+	$serve->start();
+	if ($serve->error)	echo $serve->error;
+	unset($serve);
+?&gt;
+</pre>
+</td></tr>
+</table>
+<br><br>
+</div>
+</font>
+</body>
+</head>
+
+	
+	 
+	 
+		
+	  	
+	 

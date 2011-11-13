@@ -1388,6 +1388,146 @@ $.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
 
 })( window, jQuery );
 
+
+/*!
+ * JSizes - JQuery plugin v0.33
+ *
+ * Licensed under the revised BSD License.
+ * Copyright 2008-2010 Bram Stein
+ * All rights reserved.
+ */
+/*global jQuery*/
+(function ($) {
+	var num = function (value) {
+			return parseInt(value, 10) || 0;
+		};
+
+	/**
+	 * Sets or gets the values for min-width, min-height, max-width
+	 * and max-height.
+	 */
+	$.each(['min', 'max'], function (i, name) {
+		$.fn[name + 'Size'] = function (value) {
+			var width, height;
+			if (value) {
+				if (value.width !== undefined) {
+					this.css(name + '-width', value.width);
+				}
+				if (value.height !== undefined) {
+					this.css(name + '-height', value.height);
+				}
+				return this;
+			}
+			else {
+				width = this.css(name + '-width');
+				height = this.css(name + '-height');
+				// Apparently:
+				//  * Opera returns -1px instead of none
+				//  * IE6 returns undefined instead of none
+				return {'width': (name === 'max' && (width === undefined || width === 'none' || num(width) === -1) && Number.MAX_VALUE) || num(width), 
+						'height': (name === 'max' && (height === undefined || height === 'none' || num(height) === -1) && Number.MAX_VALUE) || num(height)};
+			}
+		};
+	});
+
+	/**
+	 * Returns whether or not an element is visible.
+	 */
+	$.fn.isVisible = function () {
+		return this.is(':visible');
+	};
+
+	/**
+	 * Sets or gets the values for border, margin and padding.
+	 */
+	$.each(['border', 'margin', 'padding'], function (i, name) {
+		$.fn[name] = function (value) {
+			if (value) {
+				if (value.top !== undefined) {
+					this.css(name + '-top' + (name === 'border' ? '-width' : ''), value.top);
+				}
+				if (value.bottom !== undefined) {
+					this.css(name + '-bottom' + (name === 'border' ? '-width' : ''), value.bottom);
+				}
+				if (value.left !== undefined) {
+					this.css(name + '-left' + (name === 'border' ? '-width' : ''), value.left);
+				}
+				if (value.right !== undefined) {
+					this.css(name + '-right' + (name === 'border' ? '-width' : ''), value.right);
+				}
+				return this;
+			}
+			else {
+				return {top: num(this.css(name + '-top' + (name === 'border' ? '-width' : ''))),
+						bottom: num(this.css(name + '-bottom' + (name === 'border' ? '-width' : ''))),
+						left: num(this.css(name + '-left' + (name === 'border' ? '-width' : ''))),
+						right: num(this.css(name + '-right' + (name === 'border' ? '-width' : '')))};
+			}
+		};
+	});
+})(jQuery);
+
+//popup
+
+jQuery.fn.popupready = function(onready, url, name, features, replace) {
+    var popup = window.open(url, name, features, replace);
+    if (onready) {
+        setTimeout(poll, 10);
+    }
+    function poll() {
+        if (jQuery("body *", popup.document).length == 0) {
+            setTimeout(poll, 10);
+        }
+        else {
+            onready(popup);
+        }
+    }
+    return popup;
+    
+};
+jQuery.popupready = jQuery.fn.popupready;
+
+//end popup
+
+//start download
+
+/*
+ * --------------------------------------------------------------------
+ * jQuery-Plugin - $.download - allows for simple get/post requests for files
+ * by Scott Jehl, scott@filamentgroup.com
+ * http://www.filamentgroup.com
+ * reference article: http://www.filamentgroup.com/lab/jquery_plugin_for_requesting_ajax_like_file_downloads/
+ * Copyright (c) 2008 Filament Group, Inc
+ * Dual licensed under the MIT (filamentgroup.com/examples/mit-license.txt) and GPL (filamentgroup.com/examples/gpl-license.txt) licenses.
+ * --------------------------------------------------------------------
+ */
+ 
+jQuery.download = function(url, data, method){
+	//url and data options required
+	if( url && data ){ 
+		//data can be string of parameters or array/object
+		//data = typeof data == 'string' ? data : jQuery.param(data);
+		//split params into form inputs
+		var inputs = '';
+		jQuery.each(data.split('&'), function(){ 
+			var pair = this.split('=');
+			inputs+='<input type="hidden" name="'+ pair[0] +'" value="'+ pair[1] +'" />'; 
+		});
+		//alert('<form action="'+url+'?'+data+'"></form>');
+		//send request
+		jQuery('<form class="formula" action="'+ url +'" method="'+ (method||'get') +'">'+inputs+'</form>')
+		//jQuery('<form action="'+url+'?">'+inputs+'</form>')
+		.appendTo('body').submit();
+		
+	};
+	
+		
+};
+
+//end download
+
+
+
 //competitive button
 			$('#competitive').mouseover(function() {
   			$('#competitive').css('cursor', 'pointer');
@@ -1408,6 +1548,7 @@ $.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
 			$('#competitive').click(function(event) {
    			event.preventDefault();
    			
+  			$('.segmentCallout').replaceWith('');
   			$('#competitive').css({'background-color':'#333333'});
   			
       		$("#buttBar").slideToggle('fast');
@@ -1415,7 +1556,8 @@ $.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
       		var isVisible = $("#SFbuttBar").is(':visible');
       		var isVisibleB = $("#SFsegmentBar").is(':visible');
       		var isVisibleC = $("#SFmakeBar").is(':visible');
-      		
+      		var isVisibleD = $("#sfMakeBox").is(':visible');
+      		var isVisibleE = $('#sfSegmentBox').is(':visible');
       		
       		if(isVisible = true){
       		$('#SFbuttBar').slideUp('fast');
@@ -1432,6 +1574,26 @@ $.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
   			$("#SFmakeBox").slideUp('fast');
   			$("#SFmakeBox").css('display','none');
   			} 
+  			
+  			
+  			if(isVisibleD = true){
+  			
+  			$("#sfMakeBox").slideUp('fast');
+  			$("#sfMakeBox").css('display','none');
+  			}
+  			
+  			if(isVisibleE = true){
+  			
+  			$("#sfSegmentBox").slideUp('fast');
+  			$("#sfSegmentBox").css('display','none');
+  			}
+  			
+  			var isVisibleF = $('#comparisonBox').is(':visible');  			
+  			
+  			if(isVisibleF = true){
+  			$("#comparisonBox").slideToggle('fast');
+  			$("#comparisonBox").css('display','none');
+  			}
       		
   			});
   			
@@ -1456,6 +1618,7 @@ $.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
 			$('#sales').click(function(event) {
    			event.preventDefault();
    			
+  			$('.segmentCallout').replaceWith('');
   			$('#sales').css({'background-color':'#333333'});
   			
       		$("#SFbuttBar").slideToggle('fast');
@@ -1486,6 +1649,13 @@ $.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
   			if(isVisibleD = true){
   			$("#makeBox").slideUp('fast');
   			$("#makeBox").css('display','none');
+  			}
+  			
+  			var isVisibleF = $('#comparisonBox').is(':visible');  			
+  			
+  			if(isVisibleF = true){
+  			$("#comparisonBox").slideToggle('fast');
+  			$("#comparisonBox").css('display','none');
   			} 
   			
   			});
@@ -1510,9 +1680,8 @@ $.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
   			event.preventDefault();
   			var isVisible = $('#segmentBox').is(':visible');
   			var isVisibleB = $('#customSegmentBox').is(':visible');
-  			
-  			
-  			$('.segmentCallout').remove();
+      		  			
+  			$('.segmentCallout').replaceWith('');
   			$("#makeBox").slideToggle('slow');
   			
   			if(isVisible = true){
@@ -1526,24 +1695,66 @@ $.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
   			$("#customSegmentBox").css('display','none');
   			}
   			
+  			var isVisibleC = $('#sfMakeBox').is(':visible');
+      		var isVisibleD = $('#sfSegmentBox').is(':visible');
+  			
+
+  			if(isVisibleC = true){
+  			$("#sfMakeBox").slideToggle('fast');
+  			$("#sfMakeBox").css('display','none');
+  			}
+  			
+  			
+  			if(isVisibleD = true){
+  			$("#sfSegmentBox").slideToggle('fast');
+  			$("#sfSegmentBox").css('display','none');
+  			}
+  			
+  			var isVisibleF = $('#comparisonBox').is(':visible');  			
+  			
+  			if(isVisibleF = true){
+  			$("#comparisonBox").slideToggle('fast');
+  			$("#comparisonBox").css('display','none');
+  			}
+  			
   			});
   			
 //competitive make buttons  			
-  			$('.button').click(function(){
+/*working make buttons*/
+/*  			$('.button').click(function(){
   			$('.button').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});	
 			  $(this).css({'background-color':'#4CBCFA','font-size':'14px','font-weight':'700'});
 			  var selector = $(this).attr('title');
 			  var data = $(this).attr('data-filter');
 			  //$('.hello').append("<div class='segmentCallout'>"+selector+'  '+data+"</div>");
 			  
-  			  $('.segmentCallout').remove();
-			  $.get("index/make/"+data,function(txt){
+  			//$('.segmentCallout').remove();
+  			$('.segmentCallout').replaceWith('');
+			  $.get("index/make/"+selector+"/"+data,function(txt){
 			  $('.hello').append("<div class='segmentCallout'>"+txt+"</div>");
+			  return false;
 			  });
+			  });*/
+			  
+//competitive make buttons  			
+  			$('.button').click(function(){
+  			$('.button').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});	
+			  $(this).css({'background-color':'#4CBCFA','font-size':'14px','font-weight':'700'});
+			  var selector = $(this).attr('title');
+			  var data = $(this).attr('data-filter');
+			  var href = $(this).attr('href').replace( /^#/, '' ),
+			  option = $.deparam( href, true );
+			  $.bbq.pushState(option);
+			  
+  			//$('.segmentCallout').remove();
+  			/*$('.segmentCallout').replaceWith('');
+			  $.get("index/make/"+selector+"/"+data,function(txt){
+			  $('.hello').append("<div class='segmentCallout'>"+txt+"</div>");
+			  return false;
+			  });*/
 			  });
 			  
-			
-  			
+
 //competitive segment
   			$('.segment').mouseover(function() {
   			$('.segment').css('cursor', 'pointer');
@@ -1565,8 +1776,8 @@ $.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
   			var isVisible = $('#makeBox').is(':visible');
   			var isVisibleB = $('#customSegmentBox').is(':visible');
   			
-  			
-  			$('.segmentCallout').remove();
+  			//$('.segmentCallout').remove();
+  			$('.segmentCallout').replaceWith('');
   			$("#segmentBox").slideToggle('slow');
   			
   			if(isVisible = true){
@@ -1580,18 +1791,63 @@ $.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
   			}
   			
   			
+  			
+  			var isVisibleC = $('#sfMakeBox').is(':visible');
+      		var isVisibleD = $('#sfSegmentBox').is(':visible');
+  			
+
+  			if(isVisibleC = true){
+  			$("#sfMakeBox").slideToggle('fast');
+  			$("#sfMakeBox").css('display','none');
+  			}
+  			
+  			
+  			if(isVisibleD = true){
+  			$("#sfSegmentBox").slideToggle('fast');
+  			$("#sfSegmentBox").css('display','none');
+  			}
+  			
+  			var isVisibleF = $('#comparisonBox').is(':visible');  			
+  			
+  			if(isVisibleF = true){
+  			$("#comparisonBox").slideToggle('fast');
+  			$("#comparisonBox").css('display','none');
+  			}
+  			
   			});
   			
   			
   			
-  			
+/*good segment button  			
 //competitive segment buttons
   			$('.segmentButton').click(function(){
   			$('.segmentButton').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});	
 			  $(this).css({'background-color':'#4CBCFA','font-size':'14px','font-weight':'700'});
 			  var selector = $(this).attr('title');
 			  var data = $(this).attr('data-filter');
-			  $('.hello').append("<div class='segmentCallout'>"+selector+'  '+data+"</div>");
+			  //$('.hello').append("<div class='segmentCallout'>"+selector+'  '+data+"</div>");
+			  $('.segmentCallout').replaceWith('');
+			  $.get("index/segment/"+data,function(txt){
+			  $('.hello').append("<div class='segmentCallout'>"+txt+"</div>");
+			  return false;
+			  });
+			  });
+*/
+//competitive segment buttons
+  			$('.segmentButton').click(function(){
+  			$('.segmentButton').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});	
+			  $(this).css({'background-color':'#4CBCFA','font-size':'14px','font-weight':'700'});
+			  var selector = $(this).attr('title');
+			  var data = $(this).attr('data-filter');
+			  //$('.hello').append("<div class='segmentCallout'>"+selector+'  '+data+"</div>");
+			 /* $('.segmentCallout').replaceWith('');
+			  $.get("index/segment/"+data,function(txt){
+			  $('.hello').append("<div class='segmentCallout'>"+txt+"</div>");
+			  return false;
+			  });*/
+			  var href = $(this).attr('href').replace( /^#/, '' ),
+			  option = $.deparam( href, true );
+			  $.bbq.pushState(option);
 			  });
   			
   			
@@ -1617,11 +1873,12 @@ $.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
   			event.preventDefault();
   			var isVisible = $('#makeBox').is(':visible');
   			var isVisibleB = $('#segmentBox').is(':visible');
+  			var isVisibleC = $('#sfMakeBox').is(':visible');
   			
   			
   			
   			
-  			$('.segmentCallout').remove();
+  			$('.segmentCallout').replaceWith('');
   			$("#customSegmentBox").slideToggle('slow');
   			
   			if(isVisible = true){
@@ -1634,15 +1891,431 @@ $.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
   			$("#segmentBox").css('display','none');
   			}
   			
+  			if(isVisibleC = true){
+  			
+  			$("#sfMakeBox").slideUp('fast');
+  			$("#sfMakeBox").css('display','none');
+  			}
+  			
+  			var isVisibleF = $('#comparisonBox').is(':visible');  			
+  			
+  			if(isVisibleF = true){
+  			$("#comparisonBox").slideToggle('fast');
+  			$("#comparisonBox").css('display','none');
+  			}
+  			
   			});
   			
   			
-
-//competitive segment buttons
+/*good custom segment buttons
+//competitive custom segment segment buttons
   			$('.customSegmentButton').click(function(){
   			$('.customSegmentButton').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});	
 			  $(this).css({'background-color':'#4CBCFA','font-size':'14px','font-weight':'700'});
 			  var selector = $(this).attr('title');
 			  var data = $(this).attr('data-filter');
-			  $('.hello').append("<div class='segmentCallout'>"+selector+'  '+data+"</div>");
+			   $('.segmentCallout').replaceWith('');
+			  $.get("index/customsegment/"+data,function(txt){
+			  $('.hello').append("<div class='segmentCallout'>"+txt+"</div>");
+			  return false;
 			  });
+			  });*/
+			  
+//competitive custom segment segment buttons
+  			$('.customSegmentButton').click(function(){
+  			$('.customSegmentButton').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});	
+			  $(this).css({'background-color':'#4CBCFA','font-size':'14px','font-weight':'700'});
+			  var selector = $(this).attr('title');
+			  var data = $(this).attr('data-filter');
+			   $('.segmentCallout').replaceWith('');
+			  
+			  var href = $(this).attr('href').replace( /^#/, '' ),
+			  option = $.deparam( href, true );
+			  $.bbq.pushState(option);
+			  });
+			  
+//salesForecast make 			
+  			$('.makeSF').mouseover(function() {
+  			$('.makeSF').css('cursor', 'pointer');
+  			$('.makeSF').css({'background-color':'#4CBCFA'});
+			});
+  			
+  			$('.makeSF').mouseout(function() {
+  			$('.makeSF').css('cursor', 'default');
+  			$('.makeSF').css({'background-color':''});
+  			});
+  			
+  			
+  			$('.makeSF').click(function(event){
+  			
+  			$('.butt').css({'background-color':'','font-weight':'400'});
+  			$('.sfMButton').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});
+  			
+  			$('.makeSF').css({'font-weight':'700'});
+  			event.preventDefault();
+  			var isVisible = $('#segmentBox').is(':visible');
+  			var isVisibleB = $('#customSegmentBox').is(':visible');
+  			
+  			var isVisibleC = $('#makeBox').is(':visible');
+  			
+  			$('.segmentCallout').remove();
+  			$("#sfMakeBox").slideToggle('slow');
+  			
+  			if(isVisible = true){
+  			$("#segmentBox").slideToggle('fast');
+  			$("#segmentBox").css('display','none');
+  			}
+  			
+  			
+  			if(isVisibleB = true){
+  			$("#customSegmentBox").slideToggle('fast');
+  			$("#customSegmentBox").css('display','none');
+  			}
+  			
+  			
+  			if(isVisibleC = true){
+  			$("#makeBox").slideToggle('fast');
+  			$("#makeBox").css('display','none');
+  			}
+  			
+  			var isVisibleD = $('#sfSegmentBox').is(':visible');  			
+  			
+  			if(isVisibleD = true){
+  			$("#sfSegmentBox").slideToggle('fast');
+  			$("#sfSegmentBox").css('display','none');
+  			}
+  			
+  			var isVisibleF = $('#comparisonBox').is(':visible');  			
+  			
+  			if(isVisibleF = true){
+  			$("#comparisonBox").slideToggle('fast');
+  			$("#comparisonBox").css('display','none');
+  			}
+  			
+  			});
+/*salesForecast Make buttons Good 			
+//salesForecast make buttons  			
+  			$('.sfMButton').click(function(){
+  			$('.sfMButton').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});	
+			  $(this).css({'background-color':'#4CBCFA','font-size':'14px','font-weight':'700'});
+			  var selector = $(this).attr('title');
+			  var data = $(this).attr('data-filter');
+			  var name = $(this).attr('name');
+			  //$('.hello').append("<div class='segmentCallout'>"+selector+'  '+data+"</div>");
+			  
+  			//$('.segmentCallout').remove();
+  			$('.segmentCallout').replaceWith('');
+			 // $.get("index/make/"+selector+"/"+data,function(txt){
+			  $('.hello').append("<div class='segmentCallout'>"+name+" "+data+" "+selector+"</div>");
+			 // });
+			  });
+			  */
+	
+//salesForecast make buttons  			
+  			$('.sfMButton').click(function(){
+  			$('.sfMButton').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});	
+			  $(this).css({'background-color':'#4CBCFA','font-size':'14px','font-weight':'700'});
+			  var selector = $(this).attr('title');
+			  var data = $(this).attr('data-filter');
+			  var name = $(this).attr('name');
+			  
+			  $('.segmentCallout').replaceWith('');
+			  
+			  var href = $(this).attr('href').replace( /^#/, '' ),
+			  option = $.deparam( href, true );
+			  $.bbq.pushState(option);
+			  });
+			  
+//salesForecast segmentSF 			
+  			$('.segmentSF').mouseover(function() {
+  			$('.segmentSF').css('cursor', 'pointer');
+  			$('.segmentSF').css({'background-color':'#4CBCFA'});
+			});
+  			
+  			$('.segmentSF').mouseout(function() {
+  			$('.segmentSF').css('cursor', 'default');
+  			$('.segmentSF').css({'background-color':''});
+  			});
+  			
+  			
+  			$('.segmentSF').click(function(event){
+  			
+  			$('.butt').css({'background-color':'','font-weight':'400'});
+  			$('.sfSegmentButton').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});
+  			
+  			$('.segmentSF').css({'font-weight':'700'});
+  			event.preventDefault();
+  			var isVisible = $('#segmentBox').is(':visible');
+  			var isVisibleB = $('#customSegmentBox').is(':visible');
+  			
+  			
+  			$('.segmentCallout').remove();
+  			$("#sfSegmentBox").slideToggle('slow');
+  			
+  			if(isVisible = true){
+  			$("#segmentBox").slideToggle('fast');
+  			$("#segmentBox").css('display','none');
+  			}
+  			
+  			
+  			if(isVisibleB = true){
+  			$("#customSegmentBox").slideToggle('fast');
+  			$("#customSegmentBox").css('display','none');
+  			}
+  			
+  			var isVisibleC = $('#sfMakeBox').is(':visible');  			
+  			
+  			if(isVisibleC = true){
+  			$("#sfMakeBox").slideToggle('fast');
+  			$("#sfMakeBox").css('display','none');
+  			}
+  			
+  			
+  			
+  			var isVisibleD = $('#makeBox').is(':visible');
+  			  			
+  			
+  			if(isVisibleD = true){
+  			$("#makeBox").slideToggle('fast');
+  			$("#makeBox").css('display','none');
+  			}
+  			
+  			var isVisibleF = $('#comparisonBox').is(':visible');  			
+  			
+  			if(isVisibleF = true){
+  			$("#comparisonBox").slideToggle('fast');
+  			$("#comparisonBox").css('display','none');
+  			}
+  			
+  			});
+  			
+//salesForecast segment buttons  			
+  			$('.sfSegmentButton').click(function(){
+  			$('.sfSegmentButton').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});	
+			  $(this).css({'background-color':'#4CBCFA','font-size':'14px','font-weight':'700'});
+			  var selector = $(this).attr('title');
+			  var data = $(this).attr('data-filter');
+			  var name = $(this).attr('name');
+			 
+			 
+			  
+  			 var href = $(this).attr('href').replace( /^#/, '' ),
+			  option = $.deparam( href, true );
+			  $.bbq.pushState(option);
+			  });			  
+
+//battleground comparison 			
+  			$('.comparison').mouseover(function() {
+  			$('.comparison').css('cursor', 'pointer');
+  			$('.comparison').css({'background-color':'#4CBCFA'});
+			});
+  			
+  			$('.comparison').mouseout(function() {
+  			$('.comparison').css('cursor', 'default');
+  			$('.comparison').css({'background-color':''});
+  			});
+  			
+  			
+  			$('.comparison').click(function(event){
+  			
+  			$('.butt').css({'background-color':'','font-weight':'400'});
+  			$('.comparisonButton').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});
+  			
+  			$('.comparison').css({'font-weight':'700'});
+  			event.preventDefault();
+  			var isVisible = $('#segmentBox').is(':visible');
+  			var isVisibleB = $('#customSegmentBox').is(':visible');
+  			var isVisibleC = $('#makeBox').is(':visible');
+  			
+  			
+  			$('.segmentCallout').remove();
+  			$("#comparisonBox").slideToggle('slow');
+  			
+  			if(isVisible = true){
+  			$("#segmentBox").slideToggle('fast');
+  			$("#segmentBox").css('display','none');
+  			}
+  			
+  			
+  			if(isVisibleB = true){
+  			$("#customSegmentBox").slideToggle('fast');
+  			$("#customSegmentBox").css('display','none');
+  			}
+  			
+  			var isVisibleC = $('#sfMakeBox').is(':visible');  			
+  			
+  			if(isVisibleC = true){
+  			$("#sfMakeBox").slideToggle('fast');
+  			$("#sfMakeBox").css('display','none');
+  			}
+  			
+  			
+  			
+  			var isVisibleE = $('#sfSegmentBox').is(':visible');  			
+  			
+  			if(isVisibleC = true){
+  			$("#sfSegmentBox").slideToggle('fast');
+  			$("#sfSegmentBox").css('display','none');
+  			}
+  			
+  			
+  			var isVisibleD = $('#makeBox').is(':visible');
+  			  			
+  			
+  			if(isVisibleD = true){
+  			$("#makeBox").slideToggle('fast');
+  			$("#makeBox").css('display','none');
+  			}
+  			
+  			});
+  			
+//battleground segment buttons  			
+  			$('.comparisonButton').click(function(){
+  			$('.comparisonButton').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});	
+			  $(this).css({'background-color':'#4CBCFA','font-size':'14px','font-weight':'700'});
+			  var selector = $(this).attr('title');
+			  var data = $(this).attr('data-filter');
+			  var name = $(this).attr('name');
+			  
+			  
+  			 var href = $(this).attr('href').replace( /^#/, '' ),
+			  option = $.deparam( href, true );
+			  $.bbq.pushState(option);
+			  });
+
+//modelYear Scroll
+
+			$('#leftArrow').mouseover(function() {
+  			$('#leftArrow').css('cursor', 'pointer');
+			});
+  			
+  			$('#leftArrow').mouseout(function() {
+  			$('#leftArrow').css('cursor', 'default');
+  			});
+  			
+  			$('#leftArrow').click(function(event){
+  			$(".scroller").scrollLeft(800);
+  			
+  			event.preventDefault();
+  			
+  			  			
+  			});
+//logout
+			$('#logout').mouseover(function(){
+			$('#logout').css('cursor','pointer');
+			});
+			
+			$('#logout').mouseout(function(){
+			$('#logout').css('cursor','default');
+			}); 			
+			
+			$('#logout').click(function(){
+			$('.segmentCallout').replaceWith('');
+			  $.get("index/logout",function(txt){
+			  $('.hello').append("<div class='segmentCallout'>"+txt+"</div>");
+			  window.location = "http://eap.rcomcreative.com";
+			  return false;
+			  });
+			});
+
+$(window).bind( 'hashchange', function( event ){
+				  // get options object from hash
+			var pathnameSegment = window.location.hash;
+			path = pathnameSegment.replace(/^#filter=/,'');
+
+//			path2 = path.replace(/[a-z]\/([^.]+)/,'');
+			path2 = path.replace(/([a-z])\/[^.]+/,'');
+//			alert("this is path "+path+" this is path2 "+path2);
+			$('.segmentCallout').replaceWith('');
+			switch(path2){
+				case 'segmen':
+				pathname = pathnameSegment.replace(/^#filter=segment\//,'');
+				
+			  	$.get("../index/segment/"+pathname,function(txt){
+			  	$('.hello').append("<div class='segmentCallout'>"+txt+"</div>");
+			  	return false;
+			  	});
+			  	break;
+			  	case 'mak':
+			  	pathname = pathnameSegment.replace(/^#filter=make\//,'');
+			  	
+			  	$.get("../index/make/"+pathname,function(txt){
+			  	$('.hello').append("<div class='segmentCallout'>"+txt+"</div>");
+			 	return false;
+			  	});
+			  	break;
+			  	case 'cSegmen':
+			  	pathname = pathnameSegment.replace(/^#filter=cSegment\//,'');
+			  	
+			  	$.get("../index/customsegment/"+pathname,function(txt){
+			  	$('.hello').append("<div class='segmentCallout'>"+txt+"</div>");
+			  	return false;
+			  	});
+			  	break;
+			  	case 'compariso':
+			  	pathname = pathnameSegment.replace(/^#filter=comparison\//,'');
+			  	
+			  	$.get("../index/comparison/"+pathname,function(txt){
+			  	$('.hello').append("<div class='segmentCallout'>"+txt+"</div>");
+			  	return false;
+			  	});
+			  	break;
+			  	case 'sfMak':
+			  	pathname = pathnameSegment.replace(/^#filter=sfMake\//,'');
+			  	
+			  	$.get("../index/sfMake/"+pathname,function(txt){
+			  	$('.hello').append("<div class='segmentCallout'>"+txt+"</div>");
+			  	return false;
+			  	});
+			  	break;
+			  	case 'sfSegmen':
+			  	pathname = pathnameSegment.replace(/^#filter=sfSegment\//,'');
+			  	
+			  	$.get("../index/sfSegment/"+pathname,function(txt){
+			  	$('.hello').append("<div class='segmentCallout'>"+txt+"</div>");
+			  	return false;
+			  	});
+			  	break;
+			}
+			/*var segmentLength = '';
+			var makeLength = '';
+			
+			if(pathnameSegment.match( /segment/ig ).length >0){
+				segmentLength = pathnameSegment.match( /segment/ig ).length;
+				
+			}
+			
+			
+			if(segmentLength >0){
+			
+				  pathname = pathnameSegment.replace(/^#filter=segment\//,'');  
+				 			  	
+			 	 $('.segmentCallout').replaceWith('');
+			  	$.get("../index/segment/"+pathname,function(txt){
+			  	$('.hello').append("<div class='segmentCallout'>"+txt+"</div>");
+			  	//$('.button').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});
+			  	return false;
+			  	});
+			  	}
+			  	
+			var pathnameMake = window.location.hash;
+			
+			
+			if(pathnameMake.match( /make/ig ).length >0){
+				var makeLength = pathnameMake.match( /make/ig ).length;
+				
+				}
+				
+			if(makeLength >0 ){
+				  pathname = pathnameMake.replace(/^#filter=make\//,'');  			  	
+			 	 $('.segmentCallout').replaceWith('');
+			  	$.get("../index/make/"+pathname,function(txt){
+			  	$('.hello').append("<div class='segmentCallout'>"+txt+"</div>");
+			  	//$('.button').css({'background-color':'#FFFFFF','font-size':'12px','font-weight':'400'});
+			  	return false;
+			  	});
+			  	}*/
+			})
+  // trigger hashchange to capture any hash data on init
+  .trigger('hashchange');
+		

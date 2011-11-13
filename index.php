@@ -3,6 +3,42 @@
 **insuring that there are no sessions set
 */
 session_start();
+
+//ini_set('display_errors','On');
+
+date_default_timezone_set('America/Los_Angeles');
+
+require_once('eapInc/configOS.php');
+
+//session_start();
+$date = date("Y-m-d");
+$cookie = $_COOKIE['day'];
+//echo $date." cookie ".$cookie.'<br />';
+$cID = '';
+$cID .= $_COOKIE['cid'];
+if($date == $cookie){
+$timer = $_COOKIE['last'];
+$timely = date("G.i");
+$timed = $timely-$timer;
+//echo $timer." timely ".$timely.'<br />'.$timed.'<br />cid'.$cID;
+if($timed<.20){
+
+if($cID != ''){
+//echo '<br />cid'.$cID;
+$target4 = 'http://eap.rcomcreative.com/index';
+header('Location:'.$target4);
+} 
+}
+}else {
+//}
+
+
+sessionLogout();
+
+
+}
+
+function sessionLogout(){
 $sessionName = session_id();
 $sessionCookie = session_get_cookie_params();
 function logout(){
@@ -19,6 +55,7 @@ function logout(){
 }
 
 logout();
+}
 
 /*
 **end of session killer

@@ -9,9 +9,28 @@ php_value memory_limit 64M
 </IfModule>
 
 RewriteEngine On
+RewriteRule ^LOGIN/?$  /index.php [NC,L]
+RewriteRule ^INDEX/?$ /entry.php [NC,L]
+RewriteRule ^INDEX/MAKE/([^.]+)/([0-9-]+)?$ /make\.php?m=$2&n=$1 [NC,L]
+RewriteRule ^INDEX/SFMAKE/([^.]+)/([0-9-]+)?$ /make\.php?m=$2&n=$1 [NC,L]
 
-Redirect 301 /TCJ http://google.com
+#IMPORTANT TO REMEMBER http://eap.rcomcreative.com/index/make/Alfa%20Romeo/43  the space can be captured with ([^.])
 
+RewriteRule ^INDEX/SEGMENT/([0-9-]+)?$ /segment\.php?m=$1 [NC,L]
+RewriteRule ^INDEX/SFSEGMENT/([0-9-]+)?$ /segment\.php?m=$1 [NC,L]
+RewriteRule ^INDEX/CUSTOMSEGMENT/([0-9-]+)?$ /customsegment\.php?m=$1 [NC,L]
+RewriteRule ^INDEX/COMPARISON/([0-9-]+)?$ /segment\.php?m=$1 [NC,L]
+RewriteRule ^INDEX/BASIC/([0-9-]+)?$ /theBasics\.php?n=$1 [NC,L]
+RewriteRule ^INDEX/SPECIFICATIONS/([0-9-]+)?$ /specifications\.php?n=$1&e=1 [NC,L]
+RewriteRule ^INDEX/ENGSPEC/([0-9-]+)?$ /specifications\.php?n=$1&e=1 [NC,L]
+RewriteRule ^INDEX/METSPEC/([0-9-]+)?$ /specifications\.php?n=$1&e=0 [NC,L]
+RewriteRule ^INDEX/PHOTOS/([0-9-]+)?$ /photos\.php?n=$1 [NC,L]
+RewriteRule ^INDEX/OVERVIEW/([0-9-]+)?$ /overview\.php?n=$1 [NC,L]
+RewriteRule ^INDEX/INSIGHTS/([0-9-]+)?$ /insights\.php?n=$1 [NC,L]
+RewriteRule ^INDEX/PRINT/([0-9-]+)?$ /print\.php?n=$1 [NC,L]
+RewriteRule ^INDEX/SALESFORECAST/([0-9-]+)?$ /salesforecast\.php?n=$1 [NC,L]
+RewriteRule ^INDEX/LOGOUT/?$ /logout\.php [NC,L]
+RewriteRule ^INDEX/([a-zA-Z0-9\_\.-]+)?$ /down\.php?n=$1 [NC,L]
 # Adaptive-Images -----------------------------------------------------------------------------------
 
   # Add any directories you wish to omit from the Adaptive-Images process on a new line, as follows:
@@ -19,12 +38,15 @@ Redirect 301 /TCJ http://google.com
   # RewriteCond %{REQUEST_URI} !and-ignore-this-directory-too
   
   RewriteCond %{REQUEST_URI} !dead
+  RewriteCond %{REQUEST_URI} !background
     
   # Send any GIF, JPG, or PNG request that IS NOT stored inside one of the above directories
   # to adaptive-images.php so we can select appropriately sized versions
   RewriteRule \.(?:jpe?g|gif|png)$ adaptive-images.php
 
   # END Adaptive-Images -------------------------------------------------------------------------------
+  
+
 
 # Apache configuration file
 # httpd.apache.org/docs/2.2/mod/quickreference.html
@@ -532,3 +554,5 @@ AddCharset utf-8 .html .css .js .xml .json .rss .atom
 <IfModule php5_module>
   php_value session.cookie_httponly true
 </IfModule>
+
+

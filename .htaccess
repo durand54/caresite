@@ -1,6 +1,6 @@
 Options +FollowSymLinks
 SetEnv TZ America/Los_Angeles
-SetEnv SERVER_ADMIN durandjones@rcomcreative.com
+SetEnv SERVER_ADMIN durandjones
 
 <IfModule mod_php.c>
 php_value upload_max_filesize 90M
@@ -14,7 +14,7 @@ RewriteRule ^INDEX/?$ /entry.php [NC,L]
 RewriteRule ^INDEX/MAKE/([^.]+)/([0-9-]+)?$ /make\.php?m=$2&n=$1 [NC,L]
 RewriteRule ^INDEX/SFMAKE/([^.]+)/([0-9-]+)?$ /make\.php?m=$2&n=$1 [NC,L]
 
-#IMPORTANT TO REMEMBER http://eap.rcomcreative.com/index/make/Alfa%20Romeo/43  the space can be captured with ([^.])
+#IMPORTANT TO REMEMBER the space can be captured with ([^.])
 
 RewriteRule ^INDEX/SEGMENT/([0-9-]+)?$ /segment\.php?m=$1 [NC,L]
 RewriteRule ^INDEX/SFSEGMENT/([0-9-]+)?$ /segment\.php?m=$1 [NC,L]
